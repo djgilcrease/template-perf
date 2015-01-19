@@ -40,16 +40,25 @@
   </table>
   <script>
     var template = document.querySelector('#row');
-    for (var i = 0; i < data.length; i += 1) {
-      var cat = data[i];
-      var clone = template.content.cloneNode(true);
-      var cells = clone.querySelectorAll('td');
-      cells[0].textContent = cat.name;
-      cells[1].textContent = cat.color;
-      cells[2].textContent = cat.sex;
-      cells[3].textContent = cat.legs;
-      template.parentNode.appendChild(clone);
+    var render_data = function(data_section) {
+      requestAnimationFrame(function() {
+        for (var i = 0; i < data_section.length; i += 1) {
+          var cat = data[i];
+          var clone = template.content.cloneNode(true);
+          var cells = clone.querySelectorAll('td');
+          cells[0].textContent = cat.name;
+          cells[1].textContent = cat.color;
+          cells[2].textContent = cat.sex;
+          cells[3].textContent = cat.legs;
+          template.parentNode.appendChild(clone);
+        }
+      });
+    };
+    while(data.length) {
+      var data_section = data.splice(0, 100);
+      render_data(data_section);
     }
+    
   </script>
   <script>onLoad()</script>
   <!-- Example based on https://html.spec.whatwg.org/multipage/scripting.html#the-template-element -->
